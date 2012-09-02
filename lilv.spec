@@ -1,12 +1,12 @@
 Summary:	LV2 host library to make LV2 plugin use as simple as possible
 Summary(pl.UTF-8):	Biblioteka hosta LV2 ułatwiająca korzystanie z wtyczek LV2
 Name:		lilv
-Version:	0.14.2
+Version:	0.14.4
 Release:	1
 License:	ISC
 Group:		Libraries
 Source0:	http://download.drobilla.net/%{name}-%{version}.tar.bz2
-# Source0-md5:	1aea6761f3e44007c0fb4eb20630655d
+# Source0-md5:	891595410eeb68322cf875286f96fccf
 URL:		http://drobilla.net/software/lilv/
 BuildRequires:	doxygen
 BuildRequires:	libstdc++-devel
@@ -91,6 +91,7 @@ rm -rf $RPM_BUILD_ROOT
 %defattr(644,root,root,755)
 %doc AUTHORS COPYING NEWS README
 %attr(755,root,root) %{_bindir}/lilv-bench
+%attr(755,root,root) %{_bindir}/lv2bench
 %attr(755,root,root) %{_bindir}/lv2info
 %attr(755,root,root) %{_bindir}/lv2ls
 %attr(755,root,root) %{_libdir}/liblilv-0.so.*.*.*
