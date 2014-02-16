@@ -1,23 +1,23 @@
 Summary:	LV2 host library to make LV2 plugin use as simple as possible
 Summary(pl.UTF-8):	Biblioteka hosta LV2 ułatwiająca korzystanie z wtyczek LV2
 Name:		lilv
-Version:	0.16.0
+Version:	0.18.0
 Release:	1
 License:	ISC
 Group:		Libraries
 Source0:	http://download.drobilla.net/%{name}-%{version}.tar.bz2
-# Source0-md5:	12eb71f2b5b8a68e15c1c816896bcb9f
+# Source0-md5:	1d1232ea73b239551bb4f462b414a819
 URL:		http://drobilla.net/software/lilv/
 BuildRequires:	doxygen
 BuildRequires:	libstdc++-devel
-BuildRequires:	lv2-devel >= 1.0.0
+BuildRequires:	lv2-devel >= 1.8.0
 BuildRequires:	pkgconfig
 BuildRequires:	python
 BuildRequires:	python-modules
 BuildRequires:	serd-devel >= 0.14.0
 BuildRequires:	sord-devel >= 0.12.0
 BuildRequires:	sratom-devel >= 0.4.0
-Requires:	lv2 >= 1.0.0
+Requires:	lv2 >= 1.8.0
 Requires:	serd >= 0.14.0
 Requires:	sord >= 0.12.0
 Requires:	sratom >= 0.4.0
@@ -38,7 +38,7 @@ Summary:	Header files for Lilv library
 Summary(pl.UTF-8):	Pliki nagłówkowe biblioteki Lilv
 Group:		Development/Libraries
 Requires:	%{name} = %{version}-%{release}
-Requires:	lv2-devel >= 1.0.0
+Requires:	lv2-devel >= 1.8.0
 Requires:	serd-devel >= 0.14.0
 Requires:	sord-devel >= 0.12.0
 Requires:	sratom-devel >= 0.4.0
