@@ -1,23 +1,24 @@
 Summary:	LV2 host library to make LV2 plugin use as simple as possible
 Summary(pl.UTF-8):	Biblioteka hosta LV2 ułatwiająca korzystanie z wtyczek LV2
 Name:		lilv
-Version:	0.22.0
+Version:	0.24.0
 Release:	1
 License:	ISC
 Group:		Libraries
 Source0:	http://download.drobilla.net/%{name}-%{version}.tar.bz2
-# Source0-md5:	fd3a14fdaeaba4716b4fef526548a747
+# Source0-md5:	1d70964653027ba224c9f76abc0ee420
 URL:		http://drobilla.net/software/lilv/
 BuildRequires:	doxygen
+BuildRequires:	libsndfile-devel >= 1.0.0
 BuildRequires:	libstdc++-devel
-BuildRequires:	lv2-devel >= 1.8.0
+BuildRequires:	lv2-devel >= 1.14.0
 BuildRequires:	pkgconfig
 BuildRequires:	python
 BuildRequires:	python-modules
 BuildRequires:	serd-devel >= 0.14.0
 BuildRequires:	sord-devel >= 0.13.0
 BuildRequires:	sratom-devel >= 0.4.0
-Requires:	lv2 >= 1.8.0
+Requires:	lv2 >= 1.14.0
 Requires:	serd >= 0.14.0
 Requires:	sord >= 0.13.0
 Requires:	sratom >= 0.4.0
@@ -38,7 +39,7 @@ Summary:	Header files for Lilv library
 Summary(pl.UTF-8):	Pliki nagłówkowe biblioteki Lilv
 Group:		Development/Libraries
 Requires:	%{name} = %{version}-%{release}
-Requires:	lv2-devel >= 1.8.0
+Requires:	lv2-devel >= 1.14.0
 Requires:	serd-devel >= 0.14.0
 Requires:	sord-devel >= 0.13.0
 Requires:	sratom-devel >= 0.4.0
@@ -91,11 +92,13 @@ rm -rf $RPM_BUILD_ROOT
 %defattr(644,root,root,755)
 %doc AUTHORS COPYING NEWS README
 %attr(755,root,root) %{_bindir}/lilv-bench
+%attr(755,root,root) %{_bindir}/lv2apply
 %attr(755,root,root) %{_bindir}/lv2bench
 %attr(755,root,root) %{_bindir}/lv2info
 %attr(755,root,root) %{_bindir}/lv2ls
 %attr(755,root,root) %{_libdir}/liblilv-0.so.*.*.*
 %attr(755,root,root) %ghost %{_libdir}/liblilv-0.so.0
+%{_mandir}/man1/lv2apply.1*
 %{_mandir}/man1/lv2info.1*
 %{_mandir}/man1/lv2ls.1*
 
