@@ -1,12 +1,12 @@
 Summary:	LV2 host library to make LV2 plugin use as simple as possible
 Summary(pl.UTF-8):	Biblioteka hosta LV2 ułatwiająca korzystanie z wtyczek LV2
 Name:		lilv
-Version:	0.24.2
+Version:	0.24.4
 Release:	1
 License:	ISC
 Group:		Libraries
 Source0:	http://download.drobilla.net/%{name}-%{version}.tar.bz2
-# Source0-md5:	cae7e1700f83b0f1272f437919a68458
+# Source0-md5:	fb340958a6df5a683bf25e291493dc4d
 URL:		http://drobilla.net/software/lilv/
 BuildRequires:	doxygen
 BuildRequires:	libsndfile-devel >= 1.0.0
@@ -15,12 +15,12 @@ BuildRequires:	lv2-devel >= 1.14.0
 BuildRequires:	pkgconfig
 BuildRequires:	python
 BuildRequires:	python-modules
-BuildRequires:	serd-devel >= 0.14.0
-BuildRequires:	sord-devel >= 0.13.0
+BuildRequires:	serd-devel >= 0.18.0
+BuildRequires:	sord-devel >= 0.14.0
 BuildRequires:	sratom-devel >= 0.4.0
 Requires:	lv2 >= 1.14.0
-Requires:	serd >= 0.14.0
-Requires:	sord >= 0.13.0
+Requires:	serd >= 0.18.0
+Requires:	sord >= 0.14.0
 Requires:	sratom >= 0.4.0
 BuildRoot:	%{tmpdir}/%{name}-%{version}-root-%(id -u -n)
 
@@ -40,8 +40,8 @@ Summary(pl.UTF-8):	Pliki nagłówkowe biblioteki Lilv
 Group:		Development/Libraries
 Requires:	%{name} = %{version}-%{release}
 Requires:	lv2-devel >= 1.14.0
-Requires:	serd-devel >= 0.14.0
-Requires:	sord-devel >= 0.13.0
+Requires:	serd-devel >= 0.18.0
+Requires:	sord-devel >= 0.14.0
 Requires:	sratom-devel >= 0.4.0
 
 %description devel
