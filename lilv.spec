@@ -1,25 +1,27 @@
 Summary:	LV2 host library to make LV2 plugin use as simple as possible
 Summary(pl.UTF-8):	Biblioteka hosta LV2 ułatwiająca korzystanie z wtyczek LV2
 Name:		lilv
-Version:	0.24.4
+Version:	0.24.6
 Release:	1
 License:	ISC
 Group:		Libraries
 Source0:	http://download.drobilla.net/%{name}-%{version}.tar.bz2
-# Source0-md5:	fb340958a6df5a683bf25e291493dc4d
+# Source0-md5:	26768e5bdf3601f280e97c86dcbda79f
 URL:		http://drobilla.net/software/lilv/
 BuildRequires:	doxygen
 BuildRequires:	libsndfile-devel >= 1.0.0
 BuildRequires:	libstdc++-devel
-BuildRequires:	lv2-devel >= 1.14.0
+BuildRequires:	lv2-devel >= 1.16.0
 BuildRequires:	pkgconfig
-BuildRequires:	python
-BuildRequires:	python-modules
-BuildRequires:	serd-devel >= 0.18.0
+# or python 2.6+, but no sense to introduce in 2020
+BuildRequires:	python3 >= 1:3.4
+BuildRequires:	python3-modules >= 1:3.4
+BuildRequires:	rpmbuild(macros) >= 1.507
+BuildRequires:	serd-devel >= 0.30.0
 BuildRequires:	sord-devel >= 0.14.0
 BuildRequires:	sratom-devel >= 0.4.0
-Requires:	lv2 >= 1.14.0
-Requires:	serd >= 0.18.0
+Requires:	lv2 >= 1.16.0
+Requires:	serd >= 0.30.0
 Requires:	sord >= 0.14.0
 Requires:	sratom >= 0.4.0
 BuildRoot:	%{tmpdir}/%{name}-%{version}-root-%(id -u -n)
@@ -39,8 +41,8 @@ Summary:	Header files for Lilv library
 Summary(pl.UTF-8):	Pliki nagłówkowe biblioteki Lilv
 Group:		Development/Libraries
 Requires:	%{name} = %{version}-%{release}
-Requires:	lv2-devel >= 1.14.0
-Requires:	serd-devel >= 0.18.0
+Requires:	lv2-devel >= 1.16.0
+Requires:	serd-devel >= 0.30.0
 Requires:	sord-devel >= 0.14.0
 Requires:	sratom-devel >= 0.4.0
 
@@ -62,25 +64,41 @@ Bash auto-completion script for lv2info and lv2jack commands.
 %description -n bash-completion-lilv -l pl.UTF-8
 Skrypt bashowego dopełniania parametrów dla poleceń lv2info i lv2jack.
 
+%package -n python3-lilv
+Summary:	Python binding for lilv
+Summary(pl.UTF-8):	Wiązania Pythona do lilv
+Group:		Libraries/Python
+Requires:	%{name} = %{version}-%{release}
+Requires:	python3-modules >= 1:3.4
+
+%description -n python3-lilv
+Python binding for lilv.
+
+%description -n python3-lilv -l pl.UTF-8
+Wiązania Pythona do lilv.
+
 %prep
 %setup -q
 
 %build
 CC="%{__cc}" \
 CFLAGS="%{rpmcflags}" \
-./waf configure \
+%{__python3} ./waf configure \
 	--prefix=%{_prefix} \
 	--libdir=%{_libdir} \
 	--configdir=/etc \
 	--strict
 
-./waf -v
+%{__python3} ./waf -v
 
 %install
 rm -rf $RPM_BUILD_ROOT
 
-./waf install \
+%{__python3} ./waf install \
 	--destdir=$RPM_BUILD_ROOT
+
+%py3_comp $RPM_BUILD_ROOT%{py3_sitescriptdir}
+%py3_ocomp $RPM_BUILD_ROOT%{py3_sitescriptdir}
 
 %clean
 rm -rf $RPM_BUILD_ROOT
@@ -90,7 +108,7 @@ rm -rf $RPM_BUILD_ROOT
 
 %files
 %defattr(644,root,root,755)
-%doc AUTHORS COPYING NEWS README
+%doc AUTHORS COPYING NEWS README.md
 %attr(755,root,root) %{_bindir}/lilv-bench
 %attr(755,root,root) %{_bindir}/lv2apply
 %attr(755,root,root) %{_bindir}/lv2bench
@@ -111,3 +129,8 @@ rm -rf $RPM_BUILD_ROOT
 %files -n bash-completion-lilv
 %defattr(644,root,root,755)
 /etc/bash_completion.d/lilv
+
+%files -n python3-lilv
+%defattr(644,root,root,755)
+%{py3_sitescriptdir}/lilv.py
+%{py3_sitescriptdir}/__pycache__/lilv.cpython-*.py[co]
