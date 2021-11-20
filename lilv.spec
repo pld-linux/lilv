@@ -2,7 +2,7 @@ Summary:	LV2 host library to make LV2 plugin use as simple as possible
 Summary(pl.UTF-8):	Biblioteka hosta LV2 ułatwiająca korzystanie z wtyczek LV2
 Name:		lilv
 Version:	0.24.12
-Release:	2
+Release:	3
 License:	ISC
 Group:		Libraries
 Source0:	http://download.drobilla.net/%{name}-%{version}.tar.bz2
