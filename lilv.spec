@@ -1,29 +1,41 @@
+#
+# Conditional build:
+%bcond_with	apidocs	# API documentation
+
 Summary:	LV2 host library to make LV2 plugin use as simple as possible
 Summary(pl.UTF-8):	Biblioteka hosta LV2 ułatwiająca korzystanie z wtyczek LV2
 Name:		lilv
-Version:	0.24.12
-Release:	4
+Version:	0.24.18
+Release:	1
 License:	ISC
 Group:		Libraries
-Source0:	http://download.drobilla.net/%{name}-%{version}.tar.bz2
-# Source0-md5:	d4ca22730509c59359e01ef58d238dd1
+Source0:	http://download.drobilla.net/%{name}-%{version}.tar.xz
+# Source0-md5:	41f3c0a67c7b2a9c651e0968016c66ee
 URL:		http://drobilla.net/software/lilv/
 BuildRequires:	doxygen
 BuildRequires:	libsndfile-devel >= 1.0.0
 BuildRequires:	libstdc++-devel
-BuildRequires:	lv2-devel >= 1.18.0
+BuildRequires:	lv2-devel >= 1.18.2
+BuildRequires:	meson >= 0.56.0
+BuildRequires:	ninja >= 1.5
 BuildRequires:	pkgconfig
 # or python 2.6+, but no sense to introduce in 2020
 BuildRequires:	python3 >= 1:3.4
 BuildRequires:	python3-modules >= 1:3.4
 BuildRequires:	rpmbuild(macros) >= 1.507
-BuildRequires:	serd-devel >= 0.30.0
-BuildRequires:	sord-devel >= 0.14.0
-BuildRequires:	sratom-devel >= 0.4.0
-Requires:	lv2 >= 1.18.0
-Requires:	serd >= 0.30.0
-Requires:	sord >= 0.14.0
-Requires:	sratom >= 0.4.0
+BuildRequires:	serd-devel >= 0.30.9
+BuildRequires:	sord-devel >= 0.16.9
+BuildRequires:	sratom-devel >= 0.6.9
+BuildRequires:	tar >= 1:1.22
+BuildRequires:	xz
+%if %{with apidocs}
+BuildRequires:	doxygen
+BuildRequires:	sphinx-pdg
+%endif
+Requires:	lv2 >= 1.18.2
+Requires:	serd >= 0.30.9
+Requires:	sord >= 0.16.9
+Requires:	sratom >= 0.6.9
 BuildRoot:	%{tmpdir}/%{name}-%{version}-root-%(id -u -n)
 
 %description
@@ -41,10 +53,10 @@ Summary:	Header files for Lilv library
 Summary(pl.UTF-8):	Pliki nagłówkowe biblioteki Lilv
 Group:		Development/Libraries
 Requires:	%{name} = %{version}-%{release}
-Requires:	lv2-devel >= 1.18.0
-Requires:	serd-devel >= 0.30.0
-Requires:	sord-devel >= 0.14.0
-Requires:	sratom-devel >= 0.4.0
+Requires:	lv2-devel >= 1.18.2
+Requires:	serd-devel >= 0.30.9
+Requires:	sord-devel >= 0.16.9
+Requires:	sratom-devel >= 0.6.9
 
 %description devel
 Header files for Lilv library.
@@ -81,21 +93,16 @@ Wiązania Pythona do lilv.
 %setup -q
 
 %build
-CC="%{__cc}" \
-CFLAGS="%{rpmcflags}" \
-%{__python3} ./waf configure \
-	--prefix=%{_prefix} \
-	--libdir=%{_libdir} \
-	--configdir=/etc \
-	--strict
+%meson build \
+	--default-library=shared \
+	%{!?with_apidocs:-Ddocs=disabled}
 
-%{__python3} ./waf -v
+%ninja_build -C build
 
 %install
 rm -rf $RPM_BUILD_ROOT
 
-%{__python3} ./waf install \
-	--destdir=$RPM_BUILD_ROOT
+%ninja_install -C build
 
 %py3_comp $RPM_BUILD_ROOT%{py3_sitescriptdir}
 %py3_ocomp $RPM_BUILD_ROOT%{py3_sitescriptdir}
@@ -109,7 +116,6 @@ rm -rf $RPM_BUILD_ROOT
 %files
 %defattr(644,root,root,755)
 %doc AUTHORS COPYING NEWS README.md
-%attr(755,root,root) %{_bindir}/lilv-bench
 %attr(755,root,root) %{_bindir}/lv2apply
 %attr(755,root,root) %{_bindir}/lv2bench
 %attr(755,root,root) %{_bindir}/lv2info
@@ -117,6 +123,7 @@ rm -rf $RPM_BUILD_ROOT
 %attr(755,root,root) %{_libdir}/liblilv-0.so.*.*.*
 %attr(755,root,root) %ghost %{_libdir}/liblilv-0.so.0
 %{_mandir}/man1/lv2apply.1*
+%{_mandir}/man1/lv2bench.1*
 %{_mandir}/man1/lv2info.1*
 %{_mandir}/man1/lv2ls.1*
 
