@@ -5,12 +5,12 @@
 Summary:	LV2 host library to make LV2 plugin use as simple as possible
 Summary(pl.UTF-8):	Biblioteka hosta LV2 ułatwiająca korzystanie z wtyczek LV2
 Name:		lilv
-Version:	0.24.18
+Version:	0.24.20
 Release:	1
 License:	ISC
 Group:		Libraries
 Source0:	http://download.drobilla.net/%{name}-%{version}.tar.xz
-# Source0-md5:	41f3c0a67c7b2a9c651e0968016c66ee
+# Source0-md5:	561ff65228b54e58744a7ae6e2141741
 URL:		http://drobilla.net/software/lilv/
 BuildRequires:	doxygen
 BuildRequires:	libsndfile-devel >= 1.0.0
@@ -23,9 +23,9 @@ BuildRequires:	pkgconfig
 BuildRequires:	python3 >= 1:3.4
 BuildRequires:	python3-modules >= 1:3.4
 BuildRequires:	rpmbuild(macros) >= 1.507
-BuildRequires:	serd-devel >= 0.30.9
-BuildRequires:	sord-devel >= 0.16.9
-BuildRequires:	sratom-devel >= 0.6.9
+BuildRequires:	serd-devel >= 0.30.10
+BuildRequires:	sord-devel >= 0.16.10
+BuildRequires:	sratom-devel >= 0.6.10
 BuildRequires:	tar >= 1:1.22
 BuildRequires:	xz
 %if %{with apidocs}
@@ -33,9 +33,9 @@ BuildRequires:	doxygen
 BuildRequires:	sphinx-pdg
 %endif
 Requires:	lv2 >= 1.18.2
-Requires:	serd >= 0.30.9
-Requires:	sord >= 0.16.9
-Requires:	sratom >= 0.6.9
+Requires:	serd >= 0.30.10
+Requires:	sord >= 0.16.10
+Requires:	sratom >= 0.6.10
 BuildRoot:	%{tmpdir}/%{name}-%{version}-root-%(id -u -n)
 
 %description
@@ -54,9 +54,9 @@ Summary(pl.UTF-8):	Pliki nagłówkowe biblioteki Lilv
 Group:		Development/Libraries
 Requires:	%{name} = %{version}-%{release}
 Requires:	lv2-devel >= 1.18.2
-Requires:	serd-devel >= 0.30.9
-Requires:	sord-devel >= 0.16.9
-Requires:	sratom-devel >= 0.6.9
+Requires:	serd-devel >= 0.30.10
+Requires:	sord-devel >= 0.16.10
+Requires:	sratom-devel >= 0.6.10
 
 %description devel
 Header files for Lilv library.
