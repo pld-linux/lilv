@@ -21,6 +21,7 @@ BuildRequires:	pkgconfig
 # or python 2.6+, but no sense to introduce in 2020
 BuildRequires:	python3 >= 1:3.4
 BuildRequires:	python3-modules >= 1:3.4
+BuildRequires:	rpm-build >= 4.6
 BuildRequires:	rpmbuild(macros) >= 1.736
 BuildRequires:	serd-devel >= 0.30.10
 BuildRequires:	sord-devel >= 0.16.10
@@ -68,6 +69,7 @@ Summary:	Bash auto-completion for lilv commands
 Summary(pl.UTF-8):	Bashowe dopełnianie składni dla poleceń lilv
 Group:		Applications/Shells
 Requires:	bash-completion
+BuildArch:	noarch
 
 %description -n bash-completion-lilv
 Bash auto-completion script for lv2info and lv2jack commands.
