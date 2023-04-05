@@ -12,7 +12,6 @@ Group:		Libraries
 Source0:	http://download.drobilla.net/%{name}-%{version}.tar.xz
 # Source0-md5:	561ff65228b54e58744a7ae6e2141741
 URL:		http://drobilla.net/software/lilv/
-BuildRequires:	doxygen
 BuildRequires:	libsndfile-devel >= 1.0.0
 BuildRequires:	libstdc++-devel
 BuildRequires:	lv2-devel >= 1.18.2
