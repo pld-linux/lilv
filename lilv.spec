@@ -21,7 +21,7 @@ BuildRequires:	pkgconfig
 # or python 2.6+, but no sense to introduce in 2020
 BuildRequires:	python3 >= 1:3.4
 BuildRequires:	python3-modules >= 1:3.4
-BuildRequires:	rpmbuild(macros) >= 1.507
+BuildRequires:	rpmbuild(macros) >= 1.736
 BuildRequires:	serd-devel >= 0.30.10
 BuildRequires:	sord-devel >= 0.16.10
 BuildRequires:	sratom-devel >= 0.6.10
