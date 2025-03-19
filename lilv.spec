@@ -1,16 +1,16 @@
 #
 # Conditional build:
-%bcond_with	apidocs	# API documentation
+%bcond_without	apidocs	# API documentation
 
 Summary:	LV2 host library to make LV2 plugin use as simple as possible
 Summary(pl.UTF-8):	Biblioteka hosta LV2 ułatwiająca korzystanie z wtyczek LV2
 Name:		lilv
-Version:	0.24.24
-Release:	3
+Version:	0.24.26
+Release:	1
 License:	ISC
 Group:		Libraries
 Source0:	http://download.drobilla.net/%{name}-%{version}.tar.xz
-# Source0-md5:	02e4d830bb82314aff2ceb441fe4d0c1
+# Source0-md5:	21e9e9189ae28c876fdc7657dcd72380
 URL:		http://drobilla.net/software/lilv/
 BuildRequires:	libsndfile-devel >= 1.0.0
 BuildRequires:	libstdc++-devel
@@ -19,16 +19,16 @@ BuildRequires:	meson >= 0.56.0
 BuildRequires:	ninja >= 1.5
 BuildRequires:	pkgconfig
 # or python 2.6+, but no sense to introduce in 2020
-BuildRequires:	python3 >= 1:3.4
-BuildRequires:	python3-modules >= 1:3.4
+BuildRequires:	python3 >= 1:3.6
+BuildRequires:	python3-modules >= 1:3.6
 BuildRequires:	rpm-build >= 4.6
-BuildRequires:	rpmbuild(macros) >= 1.736
+BuildRequires:	rpmbuild(macros) >= 2.042
 BuildRequires:	serd-devel >= 0.30.10
-BuildRequires:	sord-devel >= 0.16.15
+BuildRequires:	sord-devel >= 0.16.16
 BuildRequires:	sratom-devel >= 0.6.10
 BuildRequires:	tar >= 1:1.22
 BuildRequires:	xz
-BuildRequires:	zix-devel >= 0.4.0
+BuildRequires:	zix-devel >= 0.6.0
 %if %{with apidocs}
 BuildRequires:	doxygen
 BuildRequires:	sphinx-pdg
@@ -38,7 +38,7 @@ Requires:	lv2 >= 1.18.2
 Requires:	serd >= 0.30.10
 Requires:	sord >= 0.16.15
 Requires:	sratom >= 0.6.10
-Requires:	zix >= 0.4.0
+Requires:	zix >= 0.6.0
 BuildRoot:	%{tmpdir}/%{name}-%{version}-root-%(id -u -n)
 
 %description
@@ -58,15 +58,27 @@ Group:		Development/Libraries
 Requires:	%{name} = %{version}-%{release}
 Requires:	lv2-devel >= 1.18.2
 Requires:	serd-devel >= 0.30.10
-Requires:	sord-devel >= 0.16.15
+Requires:	sord-devel >= 0.16.16
 Requires:	sratom-devel >= 0.6.10
-Requires:	zix-devel >= 0.4.0
+Requires:	zix-devel >= 0.6.0
 
 %description devel
 Header files for Lilv library.
 
 %description devel -l pl.UTF-8
 Pliki nagłówkowe biblioteki Lilv.
+
+%package apidocs
+Summary:	API documentation for lilv library
+Summary(pl.UTF-8):	Dokumentacja API biblioteki lilv
+Group:		Documentation
+BuildArch:	noarch
+
+%description apidocs
+API documentation for lilv library.
+
+%description apidocs -l pl.UTF-8
+Dokumentacja API biblioteki lilv.
 
 %package -n bash-completion-lilv
 Summary:	Bash auto-completion for lilv commands
@@ -98,16 +110,17 @@ Wiązania Pythona do lilv.
 %setup -q
 
 %build
-%meson build \
+%meson \
 	--default-library=shared \
-	%{!?with_apidocs:-Ddocs=disabled}
+	%{!?with_apidocs:-Ddocs=disabled} \
+	-Dsinglehtml=disabled
 
-%ninja_build -C build
+%meson_build
 
 %install
 rm -rf $RPM_BUILD_ROOT
 
-%ninja_install -C build
+%meson_install
 
 %py3_comp $RPM_BUILD_ROOT%{py3_sitescriptdir}
 %py3_ocomp $RPM_BUILD_ROOT%{py3_sitescriptdir}
@@ -146,3 +159,10 @@ rm -rf $RPM_BUILD_ROOT
 %defattr(644,root,root,755)
 %{py3_sitescriptdir}/lilv.py
 %{py3_sitescriptdir}/__pycache__/lilv.cpython-*.py[co]
+
+%if %{with apidocs}
+%files apidocs
+%defattr(644,root,root,755)
+%dir %{_docdir}/lilv-0
+%{_docdir}/lilv-0/html
+%endif
